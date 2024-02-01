@@ -70,7 +70,7 @@ export default function Sidebar({STATUS_SIDEBAR, closeSidebar}) {
       <Divider />
       <List>
 
-         <NavLink to="/insert-post" activeClassName="bg-red-500 text-white hover:bg-red-500" className="rounded-r-full mr-5">
+         <NavLink to="/posts" activeClassName="bg-red-500 text-white hover:bg-red-500" className="rounded-r-full mr-5">
             <ListItemButton >
               <ListItemIcon>
                 <PostAddIcon />
