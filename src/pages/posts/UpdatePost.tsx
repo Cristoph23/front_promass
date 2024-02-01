@@ -19,8 +19,6 @@ export default function UpdatePost() {
   const MySwal = withReactContent(Swal);
 
   async function onSubmit(data) {
-    console.log(data);
-
     try {
       const response = await axios.put(
         `${process.env.URL_PATH}/posts/updatePost/${id}`,
@@ -61,26 +59,39 @@ export default function UpdatePost() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-2 gap-5">
       <InputText
-        placeholder="Titulo"
         label="Titulo"
         name="title"
         defaultValue={post.title}
-        register={register("title")}
+        register={register("title", {
+          required: {
+            value: true,
+            message: "El campo es requerido",
+          },
+        })}
       />
       <InputText
-        placeholder="Autor"
         label="Autor"
         name="author"
         defaultValue={post.author}
-        register={register("author")}
+        register={register("author", {
+          required: {
+            value: true,
+            message: "El campo es requerido",
+          },
+        })}
       />
       <div className="col-span-2">
         <InputText
-          placeholder="Contenido"
           label="Contenido"
           name="content_post"
           defaultValue={post.content_post}
-          register={register("content_post")}
+          multiline={true}
+          register={register("content_post", {
+            required: {
+              value: true,
+              message: "El campo es requerido",
+            },
+          })}
         />
       </div>
       <div className="grid col-span-2">

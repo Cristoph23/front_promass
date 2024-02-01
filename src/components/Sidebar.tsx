@@ -7,7 +7,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { NavLink } from "react-router-dom";
-import PostAddIcon from '@mui/icons-material/PostAdd';
+import PostAddIcon from "@mui/icons-material/PostAdd";
 
 const drawerWidth = 280;
 
@@ -48,9 +48,13 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 // Componente para renderizar el "Menú Vertical".
-export default function Sidebar({STATUS_SIDEBAR, closeSidebar}) {
+export default function Sidebar({ STATUS_SIDEBAR, closeSidebar }) {
   return (
-    <Drawer variant="permanent" open={STATUS_SIDEBAR} className="hidden md:block">
+    <Drawer
+      variant="permanent"
+      open={STATUS_SIDEBAR}
+      className="hidden md:block"
+    >
       <div className="relative h-60 bg-[#334FAF]">
         <div className="absolute top-0 right-0 text-white rounded-full m-6">
           <button onClick={closeSidebar}>
@@ -69,15 +73,17 @@ export default function Sidebar({STATUS_SIDEBAR, closeSidebar}) {
       </div>
       <Divider />
       <List>
-
-         <NavLink to="/posts" activeClassName="bg-red-500 text-white hover:bg-red-500" className="rounded-r-full mr-5">
-            <ListItemButton >
-              <ListItemIcon>
-                <PostAddIcon />
-              </ListItemIcon>
-              <ListItemText primary="Posts" />
-            </ListItemButton>
-          </NavLink>
+        <NavLink
+          to="/posts"
+          className="bg-red-500 text-black hover:bg-red-500 rounded-r-full mr-5"
+        >
+          <ListItemButton>
+            <ListItemIcon>
+              <PostAddIcon />
+            </ListItemIcon>
+            <ListItemText primary="Posts" />
+          </ListItemButton>
+        </NavLink>
       </List>
     </Drawer>
   );
