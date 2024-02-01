@@ -5,9 +5,15 @@ import axios from "axios";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { dataInput } from "../../helpers/dataInputs";
 
 export default function InsertPost() {
-  const { handleSubmit, reset, register, formState: { errors } } = useForm();
+  const {
+    handleSubmit,
+    reset,
+    register,
+    formState: { errors },
+  } = useForm();
   const navigate = useNavigate();
   const MySwal = withReactContent(Swal);
   async function onSubmit(data) {
@@ -35,42 +41,23 @@ export default function InsertPost() {
   }
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-2 gap-5">
-      <InputText
-        label="Titulo"
-        name="title"
-        register={register("title", {
-          required: {
-            value: true,
-            message: "El campo es requerido",
-          },
-        })}
-        errors={errors}
-      />
-      <InputText
-        label="Autor"
-        name="author"
-        register={register("author", {
-          required: {
-            value: true,
-            message: "El campo es requerido",
-          },
-        })}
-        errors={errors}
-      />
-      <div className="col-span-2">
-        <InputText
-          label="Contenido"
-          name="content_post"
-          multiline={true}
-          register={register("content_post", {
-            required: {
-              value: true,
-              message: "El campo es requerido",
-            },
-          })}
-          errors={errors}
-        />
-      </div>
+      {dataInput.map((data, index) => (
+        <div className={data.classGrid}>
+          <InputText
+            key={index}
+            label={data.label}
+            name={data.name}
+            multiline={data.multiline}
+            register={register(data.name, {
+              required: {
+                value: true,
+                message: "El campo es requerido",
+              },
+            })}
+            errors={errors}
+          />
+        </div>
+      ))}
       <div className="grid col-span-2">
         <Button type="submit">Agregar</Button>
       </div>

@@ -6,6 +6,7 @@ import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { dataInput } from "../../helpers/dataInputs";
 
 export default function UpdatePost() {
   const { id } = useParams();
@@ -14,7 +15,12 @@ export default function UpdatePost() {
     author: "",
     content_post: "",
   });
-  const { handleSubmit, register, setValue } = useForm();
+  const {
+    handleSubmit,
+    register,
+    setValue,
+    formState: { errors },
+  } = useForm();
   const navigate = useNavigate();
   const MySwal = withReactContent(Swal);
 
@@ -58,42 +64,24 @@ export default function UpdatePost() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-2 gap-5">
-      <InputText
-        label="Titulo"
-        name="title"
-        defaultValue={post.title}
-        register={register("title", {
-          required: {
-            value: true,
-            message: "El campo es requerido",
-          },
-        })}
-      />
-      <InputText
-        label="Autor"
-        name="author"
-        defaultValue={post.author}
-        register={register("author", {
-          required: {
-            value: true,
-            message: "El campo es requerido",
-          },
-        })}
-      />
-      <div className="col-span-2">
-        <InputText
-          label="Contenido"
-          name="content_post"
-          defaultValue={post.content_post}
-          multiline={true}
-          register={register("content_post", {
-            required: {
-              value: true,
-              message: "El campo es requerido",
-            },
-          })}
-        />
-      </div>
+      {dataInput.map((data, index) => (
+        <div className={data.classGrid}>
+          <InputText
+            key={index}
+            defaultValue={post[data.name]}
+            label={data.label}
+            name={data.name}
+            multiline={data.multiline}
+            register={register(data.name, {
+              required: {
+                value: true,
+                message: "El campo es requerido",
+              },
+            })}
+            errors={errors}
+          />
+        </div>
+      ))}
       <div className="grid col-span-2">
         <Button type="submit">Editar</Button>
       </div>
